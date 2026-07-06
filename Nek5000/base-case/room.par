@@ -2,7 +2,7 @@
 # nek parameter file
 #
 [GENERAL] 
-startFrom = room0.ini time=0
+#startFrom = room0.ini time=0
 numSteps = 10000000
 dt = 8.e-4
 writeInterval = 5000

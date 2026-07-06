@@ -17,14 +17,14 @@ c
       parameter (lelx=60,lely=19,lelz=60) ! global tensor mesh dimensions FOR BOX 1                                 
 C      parameter (lelg=lelx*lely*lelz)    ! max number of global elements
       parameter (lelg=68448)            ! max number of global elements BOX1+BOX2
-      parameter (lpmin=512)              ! min number of MPI ranks 
+      parameter (lpmin=64)              ! min number of MPI ranks 
       parameter (lelt=lelg/lpmin + 3)  ! max number of local elements per MPI rank
       parameter (ldimt=2)              ! max auxiliary fields (temperature + scalars)
 
       ! OPTIONAL
       parameter (ldimt_proj=1)         ! max auxiliary fields residual projection
 c      parameter (lelr=lelt)            ! max number of local elements per restart file
-      parameter (lelr=142)            ! max number of local elements per restart file
+      parameter (lelr=1080)            ! max number of local elements per restart file
       parameter (lhis=45)               ! max history/monitoring points
       parameter (maxobj=1)             ! max number of objects
       parameter (lpert=1)              ! max number of perturbations

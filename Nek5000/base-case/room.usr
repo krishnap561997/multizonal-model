@@ -1,5 +1,5 @@
-#include "PPICLF_USER.h"
-#include "PPICLF_STD.h"
+c#include "PPICLF_USER.h"
+c#include "PPICLF_STD.h"
 
 #define IOPART uparam(1)                         /* IOSTEP FOR PARTICLES */
 c-----------------------------------------------------------------------
@@ -123,14 +123,14 @@ c-----------------------------------------------------------------------
       include 'TOTAL'
       include 'ZPER'  ! for nelx,nely,nelz
 
-      include "PPICLF"
+c      include "PPICLF"
 
 c     ############################################################
 c     PPICLF
-      real*8 y_out(PPICLF_LRS, PPICLF_LPART) ! Normal ordering
-      real*8 rprop_out(PPICLF_LRP + 1 , PPICLF_LPART) ! Normal ordering
-      integer*4 iprop_out(5  , PPICLF_LPART) ! Normal ordering
-      integer*4 npart_out
+c      real*8 y_out(PPICLF_LRS, PPICLF_LPART) ! Normal ordering
+c      real*8 rprop_out(PPICLF_LRP + 1 , PPICLF_LPART) ! Normal ordering
+c      integer*4 iprop_out(5  , PPICLF_LPART) ! Normal ordering
+c      integer*4 npart_out
       common /outlet/ y_out,rprop_out,iprop_out,npart_out
 
       ! Langevin
@@ -746,23 +746,23 @@ c     ############################################################
 c     PPICLF
       integer i,j,k
 
-      integer*4 ndiam
-      parameter(ndiam = 10)
-      real*8 rhop, dp(ndiam)
-      data rhop /1000.0/
-      data dp /0.2d-6,1.0d-6,5.0d-6,10.0e-6,15.0e-6
-     >        ,20.0e-6,25.0d-6,30.0e-6,40.0e-6,50.0d-6/
-
-      real*8 dpmin
-      common /dpm/ dpmin
-
-      real*8 rmu,rhof,rg
-      common /parameters/ rmu,rhof,rg
+c      integer*4 ndiam
+c      parameter(ndiam = 10)
+c      real*8 rhop, dp(ndiam)
+c      data rhop /1000.0/
+c      data dp /0.2d-6,1.0d-6,5.0d-6,10.0e-6,15.0e-6
+c     >        ,20.0e-6,25.0d-6,30.0e-6,40.0e-6,50.0d-6/
+c
+c      real*8 dpmin
+c      common /dpm/ dpmin
+c
+c      real*8 rmu,rhof,rg
+c      common /parameters/ rmu,rhof,rg
 
       common /nekmpi/ mid,mp,nekcomm,nekgroup,nekreal
 
-      real*8 y(PPICLF_LRS    , PPICLF_LPART) ! Normal ordering
-      real*8 rprop(PPICLF_LRP, PPICLF_LPART) ! Normal ordering
+c      real*8 y(PPICLF_LRS    , PPICLF_LPART) ! Normal ordering
+c      real*8 rprop(PPICLF_LRP, PPICLF_LPART) ! Normal ordering
 
       real*8 rlx,rrx,rly,rry,rlz,rrz,dum1,dum2
       common /domainsize/ rlx,rrx,rly,rry,rlz,rrz
@@ -775,11 +775,11 @@ c     PPICLF
       real*8 rdum, ran2
       external ran2
 
-      real*8 y_out(PPICLF_LRS         , PPICLF_LPART) ! Normal ordering
-      real*8 rprop_out(PPICLF_LRP + 1 , PPICLF_LPART) ! Normal ordering
-      integer*4 iprop_out(5  , PPICLF_LPART) ! Normal ordering
-      integer*4 npart_out
-      common /outlet/ y_out,rprop_out,iprop_out,npart_out
+c      real*8 y_out(PPICLF_LRS         , PPICLF_LPART) ! Normal ordering
+c      real*8 rprop_out(PPICLF_LRP + 1 , PPICLF_LPART) ! Normal ordering
+c      integer*4 iprop_out(5  , PPICLF_LPART) ! Normal ordering
+c      integer*4 npart_out
+c      common /outlet/ y_out,rprop_out,iprop_out,npart_out
 
       ! Langevin
       real*8 lan_c0,lan_cy,lan_cg,lan_gij,lan_cw
