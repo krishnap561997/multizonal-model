@@ -125,3 +125,7 @@ obj/
 *.ini
 genbox
 genmap
+
+# Meshes (regenerate from .box with genbox/genmap or make_mesh.sh)
+*.re2
+*.ma2
