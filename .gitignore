@@ -117,3 +117,11 @@ gmon.out
 build/
 bin/
 obj/
+
+# =====================================================
+# Large restart fields / regenerable tool binaries
+# =====================================================
+
+*.ini
+genbox
+genmap

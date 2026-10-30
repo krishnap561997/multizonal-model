@@ -1,0 +1,55 @@
+#!/bin/bash
+# makenek for room5x5 (Nek5000 master + ppiclF), HiPerGator RHEL9
+#   module load gcc/14.2.0 openmpi/5.0.10
+#   ./build_ppiclf.sh        (first time, or after editing ppiclf_user.f / PPICLF_USER.h)
+#   ./makenek room
+set -a
+#-------------------------------------------------------------------------------
+# Nek5000 config
+#-------------------------------------------------------------------------------
+
+# source path: a Nek5000 clone used ONLY with this toolchain (not the old ~/Nek5000)
+: ${NEK_SOURCE_ROOT:="/blue/bala1s/$USER/codes/Nek5000"}
+
+# ppiclF built for this case by ./build_ppiclf.sh
+: ${PPICLF_ROOT:="$(cd "$(dirname "$0")" && pwd)/ppiclF"}
+
+# Fortran/C compiler (OpenMPI wrappers around gcc 14)
+FC="mpif90"
+CC="mpicc"
+
+# config options (set to "?" to get a list)
+#PPLIST=""
+
+#-------------------------------------------------------------------------------
+# WHAT FOLLOWS ARE OPTIONAL SETTINGS
+#-------------------------------------------------------------------------------
+
+# optional compiler flags
+# -mcmodel=medium: static arrays (Nek + ppiclF) can exceed 2 GB per rank
+FFLAGS="-mcmodel=medium -I${PPICLF_ROOT}/source"
+CFLAGS="-mcmodel=medium"
+
+# optional linking flags
+USR_LFLAGS+=" -L${PPICLF_ROOT}/source -lppiclF"
+
+###############################################################################
+# DONT'T TOUCH WHAT FOLLOWS !!!
+###############################################################################
+: ${NEK_SOURCE_ROOT:="$HOME/Nek5000"}
+echo "using source path: $NEK_SOURCE_ROOT"
+echo "using ppiclF     : $PPICLF_ROOT"
+if [ ! -f "${PPICLF_ROOT}/source/libppiclF.a" ]; then
+  echo "ERROR: ${PPICLF_ROOT}/source/libppiclF.a not found - run ./build_ppiclf.sh first"
+  exit 1
+fi
+VERMAKENEK="19.0.1"
+set +a -e
+$NEK_SOURCE_ROOT/bin/nekconfig $@
+if [[ $1 != "clean" && $1 != "distclean" ]]; then
+ $NEK_SOURCE_ROOT/bin/nekconfig -build-dep
+ set -o pipefail
+ touch $1.usr
+ make -j4 2>&1 | tee -a build.log
+ set +o pipefail
+fi

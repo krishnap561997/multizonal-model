@@ -1,0 +1,42 @@
+#!/bin/bash
+#SBATCH --job-name=test
+#SBATCH --account=bala1s
+#SBATCH --qos=bala1s
+#SBATCH --mail-type=ALL
+#SBATCH --ntasks=256
+#SBATCH --nodes=16
+#SBATCH --ntasks-per-node=16
+#SBATCH --ntasks-per-socket=8
+#SBATCH --distribution=cyclic:cyclic
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=2gb
+#SBATCH -t 0-00:10:00
+#SBATCH -o logfile_%j.out
+#SBATCH --partition=hpg-dev
+cd /blue/bala1s/krishnap.kalivel/COVID/SLatouf_Files/multizonal-model/base-case
+echo room > SESSION.NAME
+echo `pwd`'/' >> SESSION.NAME
+echo '#################################################################'
+echo '#################################################################'
+echo Running on $SLURM_JOB_NUM_NODES nodes with $SLURM_NTASKS tasks.
+echo Running executable file ~/bin/jobs/$SLURM_JOB_ID.x.
+echo '#################################################################'
+echo '#################################################################'
+echo '#################################################################'
+echo '#################################################################'
+echo Running on $SLURM_JOB_NUM_NODES nodes with $SLURM_NTASKS tasks.
+echo Running executable file ~/bin/jobs/$SLURM_JOB_ID.x.
+echo '#################################################################'
+echo '#################################################################'
+module purge
+module load gcc
+module load openmpi
+echo HPC_PMIX=$HPC_PMIX
+srun --mpi=list
+sleep 5
+export OMPI_MCA_pml='ucx'
+export OMPI_MCA_btl='^vader,tcp,openib'
+export OMPI_MCA_oob_tcp_listen_mode='listen_thread'
+export UCX_TLS='rc,sm,self'
+srun --mpi=${HPC_PMIX} nek5000
+exit 0;

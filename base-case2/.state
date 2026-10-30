@@ -1,0 +1,9 @@
+NEK_SOURCE_ROOT=/home/krishnap.kalivel/Nek5000
+FC=mpif77
+FFLAGS=-mcmodel=large -I/home/krishnap.kalivel/ppiclF/source -g -traceback
+FCPP=-fpp
+FR8=-r8 -fpconstant
+FF77=
+CC=mpicc
+CFLAGS=-mcmodel=large
+PPLIST= MPI UNDERSCORE TIMER

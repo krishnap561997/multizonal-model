@@ -1,0 +1,26 @@
+#!/bin/bash
+#SBATCH --job-name=Sedimentation
+#SBATCH --mail-type=FAIL,END
+#SBATCH --qos=bala1s
+#SBATCH --account=bala1s
+#SBATCH --mail-user=lottc@ufl.edu
+#SBATCH --ntasks=1
+#SBATCH --nodes=1
+##SBATCH --ntasks-per-node=16
+##SBATCH --ntasks-per-socket=4
+#SBATCH --cpus-per-task=1
+##SBATCH --distribution=cyclic:cyclic
+#SBATCH --mem-per-cpu=4gb
+#SBATCH --time=02-00:00:00
+#SBATCH --output=output_%j.out
+date;hostname;pwd
+echo '#################################################################'
+echo '#################################################################'
+echo Running on $SLURM_JOB_NUM_NODES nodes with $SLURM_NTASKS tasks.
+echo '#################################################################'
+echo '#################################################################'
+module purge
+module load intel/2025.1.0 openmpi/5.0.7
+srun --mpi=${HPC_PMIX} ./nek5000
+sleep 5
+exit 0;
