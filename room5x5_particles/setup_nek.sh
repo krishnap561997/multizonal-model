@@ -5,7 +5,7 @@ set -e
 module purge
 module load gcc/14.2.0 openmpi/5.0.10
 
-NEK_SOURCE_ROOT=${NEK_SOURCE_ROOT:-/blue/bala1s/$USER/codes/Nek5000}
+NEK_SOURCE_ROOT=${NEK_SOURCE_ROOT:-$HOME/codes/Nek5000}
 NEK_COMMIT=d083ef340f32fd69cc551a07c7fa56a64c743c05   # master, 2026-10-03 (tested)
 
 if [ ! -d "$NEK_SOURCE_ROOT" ]; then

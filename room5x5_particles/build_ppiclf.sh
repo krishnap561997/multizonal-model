@@ -7,7 +7,7 @@
 # Usage:  ./build_ppiclf.sh            (inside the case folder, modules loaded)
 set -e
 CASE_DIR=$(cd "$(dirname "$0")" && pwd)
-PPICLF_ROOT=${PPICLF_ROOT:-$CASE_DIR/ppiclF}
+PPICLF_ROOT=${PPICLF_ROOT:-$HOME/codes/ppiclF_$(basename "$CASE_DIR")}
 PPICLF_COMMIT=72483db            # last commit of github.com/dpzwick/ppiclF (2020-02-08)
 
 if [ ! -d "$PPICLF_ROOT" ]; then

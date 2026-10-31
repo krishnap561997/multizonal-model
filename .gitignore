@@ -137,3 +137,6 @@ genmap
 # Case inputs needed to build/run the room5x5 cases (override SIZE / *.par above)
 !room5x5*/SIZE
 !room5x5*/room.par
+
+# ppiclF particle output
+*.vtu
