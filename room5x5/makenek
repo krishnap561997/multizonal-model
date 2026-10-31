@@ -9,10 +9,10 @@ set -a
 #-------------------------------------------------------------------------------
 
 # source path: a Nek5000 clone used ONLY with this toolchain (not the old ~/Nek5000)
-: ${NEK_SOURCE_ROOT:="/blue/bala1s/$USER/codes/Nek5000"}
+: ${NEK_SOURCE_ROOT:="$HOME/codes/Nek5000"}
 
 # ppiclF built for this case by ./build_ppiclf.sh
-: ${PPICLF_ROOT:="$(cd "$(dirname "$0")" && pwd)/ppiclF"}
+: ${PPICLF_ROOT:="$HOME/codes/ppiclF_$(basename "$(cd "$(dirname "$0")" && pwd)")"}
 
 # Fortran/C compiler (OpenMPI wrappers around gcc 14)
 FC="mpif90"

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Regenerate room.re2 and room.ma2 from room.box.  Re-run after ANY edit of room.box.
 set -e
-NEK_SOURCE_ROOT=${NEK_SOURCE_ROOT:-/blue/bala1s/$USER/codes/Nek5000}
+NEK_SOURCE_ROOT=${NEK_SOURCE_ROOT:-$HOME/codes/Nek5000}
 echo room.box | $NEK_SOURCE_ROOT/bin/genbox > genbox.log
 mv box.re2 room.re2
 printf "room\n0.01\n" | $NEK_SOURCE_ROOT/bin/genmap > genmap.log

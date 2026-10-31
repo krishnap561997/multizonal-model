@@ -1,0 +1,53 @@
+#
+# room5x5 : 5 x 5 x 3.2 m room, 4-way cassette, LES + ppiclF
+#
+# PARTICLE STAGE.  Needs room0.ini = last fluid field from the fluid-only
+# spin-up in ../room5x5 (cp ../room5x5/room0.f000NN room0.ini).
+# Restart of a particle run: see README (userParam10, parRST.vtu).
+#
+[GENERAL]
+startFrom = room0.ini time=0
+stopAt = endTime
+endTime = 1000           # s of physical time with particles
+dt = 8.e-4
+writeInterval = 6250     # fluid field (restart) output every 5 s
+timeStepper = bdf3
+
+filtering = explicit
+filterWeight = 0.05
+filterCutoffRatio = 0.9
+
+userParam01 = 1250       # IOPART: particle output interval (steps)
+userParam02 = 1.e-03     # inlet injection source length (m)     [not used: injection off]
+userParam03 = 2          # particles per size per injection/inlet [not used]
+userParam04 = 50         # end time of inlet injection (s)        [not used]
+userParam05 = 1          # IFPARTICLE: 0 = fluid only, 1 = ppiclF particles
+userParam06 = 5.0        # ACH (air changes per hour) -> inlet speed
+userParam07 = 40.0       # inlet vane angle w.r.t. ceiling (deg)
+userParam08 = 5.0e6      # total particles seeded at t=0 (all 10 sizes)
+userParam09 = 1.0        # re-seed lost particles every 1 s (0 = off)
+userParam10 = 0          # 1 = continue particles from parRST.vtu
+
+[MESH]
+numberOfBCFields = 2
+writeToFieldFile = yes
+
+[PROBLEMTYPE]
+equation = incompNS
+
+[PRESSURE]
+residualTol = 1e-04
+writeToFieldFile = yes
+
+[VELOCITY]
+residualTol = 1e-06
+density = 1.2041
+viscosity = 1.81e-5
+
+[TEMPERATURE]
+solver = none
+writeToFieldFile = yes
+
+[SCALAR01] # udiff
+solver = none
+writeToFieldFile = yes

@@ -85,6 +85,10 @@ sbatch room.batch     # account bala1s, qos bala1s-b (4-day limit), 1 node, 64 r
    (TIME = 0) and should be skipped.
 8. Disk: each par file with 5 M particles is about 0.6 GB, written every 1 s. Check `/blue` quota
    (`blue_quota`) before long runs.
+9. **Submitting from an interactive job** (e.g. the VS Code tunnel) leaks its `SLURM_*` step
+   variables into the batch job, even with `--export=NONE`. srun then dies in seconds with
+   `SLURM_MEM_PER_CPU ... SLURM_MEM_PER_NODE are mutually exclusive` or `Unable to satisfy cpu
+   bind request`. Keep the `unset ${!SLURM_CPU_BIND*} ...` block before `srun` in every batch script.
 
 ## Code map (`room.usr`)
 - `uservp` / `userf`: eddy viscosity plus a sponge/buffer in the outlet box.

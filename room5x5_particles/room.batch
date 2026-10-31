@@ -27,6 +27,15 @@ module purge
 module load gcc/14.2.0 openmpi/5.0.10
 module list 2>&1
 
+# sbatch copies SLURM_* variables from the submitting shell, even with
+# --export=NONE. When submitting from inside an interactive job (e.g. the
+# VS Code tunnel), its step settings leak in and srun fails with
+# "SLURM_MEM_PER_CPU ... SLURM_MEM_PER_NODE are mutually exclusive" or
+# "Unable to satisfy cpu bind request". Drop them before srun.
+unset ${!SLURM_CPU_BIND*} ${!SLURM_STEP*} ${!SLURM_PTY*} ${!SLURM_SRUN_COMM*} \
+      SLURM_MEM_PER_NODE SLURM_MEM_PER_GPU SLURM_DISTRIBUTION \
+      SLURM_LAUNCH_NODE_IPADDR SLURM_GTIDS SLURM_OOM_KILL_STEP
+
 echo "Running on $SLURM_JOB_NUM_NODES node(s), $SLURM_NTASKS ranks, HPC_PMIX=$HPC_PMIX"
 srun --mpi=${HPC_PMIX:-pmix} ./nek5000
 exit 0

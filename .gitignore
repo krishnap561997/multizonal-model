@@ -129,3 +129,11 @@ genmap
 # Meshes (regenerate from .box with genbox/genmap or make_mesh.sh)
 *.re2
 *.ma2
+
+# Nek5000 run metadata written at every run
+.state
+*.nek5000
+
+# Case inputs needed to build/run the room5x5 cases (override SIZE / *.par above)
+!room5x5*/SIZE
+!room5x5*/room.par
